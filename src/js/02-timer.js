@@ -43,7 +43,7 @@ function onStartClick(e) {
         updateTimerField(refs.minutesField, minutes)
         updateTimerField(refs.secondsField, seconds)
 
-        if (days === '00' && hours ==='00' && minutes === '00' && seconds === '00') { 
+        if (deltaTime < 1000) {
             clearInterval(intervalId)
         }
 

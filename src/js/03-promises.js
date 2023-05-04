@@ -18,9 +18,9 @@ function createPromise(position, delay) {
     setTimeout(() => {
       const shouldResolve = Math.random() > 0.3;
       if (shouldResolve) {
-        resolve(`✅ Fulfilled promise ${position} in ${delay}ms`)
+        resolve({position, delay })
       } else {
-        reject(`❌ Rejected promise ${position} in ${delay}ms`)
+        reject({position, delay})
       }
     }, delay)
   })
@@ -29,6 +29,7 @@ function createPromise(position, delay) {
 function onSubmitForm(e) {
   e.preventDefault();
   const formData = new FormData(refs.form);
+  refs.form.reset()
   for (const [key, value] of formData) {
     data[key] = +value
   }
@@ -46,11 +47,11 @@ Notify.init({
   fontSize: '18px',
 })
 
-function onSuccess(res) { 
-  Notify.success(`${res}`)
+function onSuccess({ position, delay}) { 
+  Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`)
 
 }
 
-function onError(res) { 
-  Notify.failure(`${res}`)
+function onError({ position, delay }) { 
+  Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`)
 }
